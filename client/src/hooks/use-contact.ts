@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { api, type InsertMessage } from "@shared/routes";
 import { useToast } from "@/hooks/use-toast";
 
-export function useSubmitContact() {
+export function useContact() {
   const { toast } = useToast();
 
   return useMutation({
@@ -14,25 +14,25 @@ export function useSubmitContact() {
       });
 
       if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || "Failed to send message");
+        const error = await res.json();
+        throw new Error(error.message || "Failed to transmit message");
       }
 
       return res.json();
     },
     onSuccess: () => {
       toast({
-        title: "Message Sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-        variant: "default",
-        className: "bg-green-500/10 border-green-500/50 text-green-500",
+        title: "TRANSMISSION SUCCESSFUL",
+        description: "Data packet received by host system.",
+        className: "font-mono border border-primary/50 bg-background text-foreground rounded-none",
       });
     },
-    onError: (error: Error) => {
+    onError: (error) => {
       toast({
-        title: "Error",
+        title: "TRANSMISSION FAILED",
         description: error.message,
         variant: "destructive",
+        className: "font-mono rounded-none",
       });
     },
   });

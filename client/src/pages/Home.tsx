@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { ArrowRight, Activity, Globe, Zap } from "lucide-react";
+import { ArrowRight, Activity, Globe, Zap, Mail, Linkedin, Github } from "lucide-react";
+import { SOCIAL_LINKS } from "@/lib/data";
 
 export default function Home() {
   return (
@@ -25,10 +26,39 @@ export default function Home() {
               <span className="text-transparent stroke-text" style={{ WebkitTextStroke: "1px hsl(var(--text-primary))" }}>Precision</span><br />
               Systems
             </h1>
-            <p className="max-w-xl font-mono text-sm text-[hsl(var(--text-secondary))] border-l border-[hsl(var(--accent-primary))] pl-4">
+            <p className="max-w-xl font-mono text-sm text-[hsl(var(--text-secondary))] border-l border-[hsl(var(--accent-primary))] pl-4 mb-8">
               Designing spatial interfaces and high-performance frontend architecture. 
               Rejecting standard templates in favor of engineered aesthetic systems.
             </p>
+            
+            {/* Social Links */}
+            <div className="flex items-center gap-8">
+              <span className="text-xs-mono text-[hsl(var(--text-secondary))]">CONNECT_NODES:</span>
+              <div className="flex gap-12">
+                {SOCIAL_LINKS.map((social, i) => {
+                  const IconComponent = social.icon === "Mail" ? Mail : social.icon === "Linkedin" ? Linkedin : Github;
+                  return (
+                    <motion.a
+                      key={social.name}
+                      href={social.href}
+                      target={social.name !== "Email" ? "_blank" : undefined}
+                      rel={social.name !== "Email" ? "noopener noreferrer" : undefined}
+                      className="group relative w-12 h-12 border border-[hsl(var(--grid-line))] flex items-center justify-center hover:border-[hsl(var(--accent-primary))] hover:bg-[hsl(var(--accent-primary))]/10 transition-all duration-300"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.7 + (i * 0.1) }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <IconComponent className="w-5 h-5 text-[hsl(var(--text-primary))] group-hover:text-[hsl(var(--accent-primary))] transition-colors" />
+                      <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs-mono whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                        {social.label}
+                      </span>
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
         </div>
 

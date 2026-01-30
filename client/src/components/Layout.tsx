@@ -44,7 +44,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Identity Block */}
         <div className="h-24 md:h-32 border-b border-[hsl(var(--grid-line))] p-6 flex flex-col justify-center">
           <h1 className="font-display text-xl font-bold uppercase tracking-tighter">
-            Architect<span className="text-[hsl(var(--accent-primary))]">.Interface</span>
+            Manya<span className="text-[hsl(var(--accent-primary))]"> Parikh</span>
           </h1>
           <div className="mt-2 flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-green-500 animate-pulse" />

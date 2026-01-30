@@ -9,6 +9,27 @@ export const NAVIGATION_LINKS = [
   { name: "Contact", href: "contact" },
 ];
 
+export const SOCIAL_LINKS = [
+  { 
+    name: "Email", 
+    href: "mailto:manyaparikh23@gmail.com",
+    icon: "Mail",
+    label: "MAIL_PROTOCOL"
+  },
+  { 
+    name: "LinkedIn", 
+    href: "https://www.linkedin.com/in/manyaparikh",
+    icon: "Linkedin",
+    label: "LINKEDIN_NODE"
+  },
+  { 
+    name: "GitHub", 
+    href: "https://github.com/Manya2302",
+    icon: "Github",
+    label: "GITHUB_REPO"
+  },
+];
+
 export const SKILLS_DATA = [
   {
     category: "Frontend Architecture",

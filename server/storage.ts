@@ -1,6 +1,5 @@
-import { messages, type Message, type InsertMessage } from "@shared/schema";
-import { db } from "./db";
-import { eq } from "drizzle-orm";
+import type { Message, type InsertMessage } from "@shared/schema";
+import { getMongoCollections } from "./db";
 
 export interface IStorage {
   createMessage(message: InsertMessage): Promise<Message>;
@@ -8,11 +7,18 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   async createMessage(insertMessage: InsertMessage): Promise<Message> {
-    const [message] = await db
-      .insert(messages)
-      .values(insertMessage)
-      .returning();
-    return message;
+    const { messages } = await getMongoCollections();
+    const createdAt = new Date();
+    const result = await messages.insertOne({
+      ...insertMessage,
+      createdAt,
+    } as Message);
+
+    return {
+      id: result.insertedId.toString(),
+      ...insertMessage,
+      createdAt,
+    };
   }
 }
 

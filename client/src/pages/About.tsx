@@ -5,16 +5,23 @@ export default function About() {
   const narrative = [
     {
       label: "ORIGIN",
-      text: "I operate at the intersection of systematic design and computational logic. My background is not in traditional art, but in structured problem solving and architectural theory."
+      text: "My academic foundation includes a B.Sc. in Information Technology (Computer Science) from Lok Jagruti University, Ahmedabad, where I built strong competencies in data analysis, programming, and system-oriented problem solving. Through applied projects across data science, SOC fundamentals, and SAP enterprise systems, my focus developed toward delivering reliable analytics within real-world business and security environments."
     },
     {
       label: "PHILOSOPHY",
-      text: "I believe interfaces should be honest. I reject decorative metaphors (skeuomorphism, glassmorphism) in favor of exposing the underlying grid and logic of the browser."
+      text: "I believe effective technology balances analytical rigor, security awareness, and business alignment, with data delivering the most value when it is accurate, interpretable, and grounded in real operational contexts. My approach prioritizes clarity, responsible data use, and insights that support secure, informed decision-making."
     },
     {
       label: "OBJECTIVE",
-      text: "To build resilient, high-performance web systems that scale not just in traffic, but in complexity and maintainability."
+      text: "To apply data science and analytical modeling to derive actionable insights from complex and security-driven datasets, while integrating SOC analysis principles and SAP enterprise context to support informed decision-making, resilient systems, and scalable business intelligence solutions."
     }
+  ];
+
+  const stats = [
+    { label: "Education", value: "B.Sc. in Information Technology" },
+    { label: "Academic Experience", value: "4 year" },
+    { label: "Certifications", value: "10+ Certifications" },
+    { label: "Projects", value: "8+ Projects" }
   ];
 
   return (
@@ -25,54 +32,70 @@ export default function About() {
         description="Biographical data stream and operational philosophy." 
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
-        {/* Left Column: Asymmetric Layout */}
-        <div className="lg:col-span-5 space-y-12">
-          <div className="aspect-[3/4] bg-[hsl(var(--bg-secondary))] border border-[hsl(var(--grid-line))] relative p-4 group">
-             {/* Abstract Portrait Representation */}
-             <div className="w-full h-full border border-[hsl(var(--grid-line))] flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 grid grid-cols-6 grid-rows-6">
-                  {Array.from({ length: 36 }).map((_, i) => (
-                    <div key={i} className="border-[0.5px] border-[hsl(var(--grid-line))] opacity-20" />
-                  ))}
-                </div>
-                <span className="font-mono text-xs text-[hsl(var(--text-secondary))] bg-[hsl(var(--bg-primary))] px-2 z-10">
-                  [IMAGE_DATA_REDACTED]
-                </span>
-                
-                <div className="absolute bottom-0 right-0 w-16 h-16 bg-[hsl(var(--accent-primary))] opacity-0 group-hover:opacity-20 transition-opacity" />
-             </div>
-          </div>
-          
-          <div className="border-t border-[hsl(var(--grid-line))] pt-4">
-             <div className="grid grid-cols-2 gap-4 text-xs font-mono text-[hsl(var(--text-secondary))]">
-                <div>LOC: SAN_FRANCISCO</div>
-                <div>EXP: 5_YEARS</div>
-                <div>ROLE: SENIOR_ENGR</div>
-                <div>MODE: ASYNC</div>
-             </div>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+        {/* Left Column: WHO AM I Section */}
+        <div className="space-y-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0 }}
+            className="relative pl-8 border-l border-[hsl(var(--grid-line))]"
+          >
+            <span className="absolute -left-[3px] top-0 w-[5px] h-[5px] bg-[hsl(var(--accent-primary))]" />
+            <h3 className="text-xs-mono mb-4 text-[hsl(var(--accent-primary))]">WHO AM I?</h3>
+            <div className="space-y-6">
+<p className="text-[hsl(var(--text-secondary))] leading-relaxed">
+  I completed a B.Sc. in Information Technology (Computer Science) from Lok Jagruti University, Ahmedabad, graduating in 2025 with a CGPA of 7.93. I work at the intersection of data science, cybersecurity analytics, and enterprise systems, with a strong academic foundation in information technology and hands-on experience across analytical modeling, data visualization, and secure data handling. My primary focus lies in applying machine learning and statistical techniques to transform complex datasets into meaningful, decision-ready insights.
+</p>
+
+<p className="text-[hsl(var(--text-secondary))] leading-relaxed">
+  Alongside data science, I have practical exposure to SOC analysis, including log correlation, anomaly detection, and threat monitoring, which has shaped my understanding of security-driven data and operational risk. I also bring working knowledge of SAP enterprise data and business processes, enabling me to connect analytical outputs with real-world organizational workflows and business intelligence requirements.
+</p>
+
+<p className="text-[hsl(var(--text-secondary))] leading-relaxed">
+  I am driven by building analytical solutions that are not only technically sound but also usable and impactful—whether through dashboards that support business decisions, models that surface hidden patterns, or insights that enhance security and operational efficiency. My goal is to deliver systems that feel simple to use while performing rigorous analysis behind the scenes.
+</p>
+            </div>
+          </motion.div>
+
+          {/* Stats Grid */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+          >
+            {stats.map((stat, idx) => (
+              <div 
+                key={stat.label}
+                className="border border-[hsl(var(--grid-line))] bg-[hsl(var(--bg-secondary))] p-6 relative group hover:border-[hsl(var(--accent-primary))] transition-colors"
+              >
+                <div className="absolute top-0 left-0 w-2 h-2 bg-[hsl(var(--accent-primary))] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <h4 className="text-xs-mono text-[hsl(var(--accent-primary))] mb-2">{stat.label}</h4>
+                <p className="text-[hsl(var(--text-primary))] font-display">{stat.value}</p>
+                <div className="h-px bg-[hsl(var(--grid-line))] mt-4" />
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        {/* Right Column: Text Stream */}
-        <div className="lg:col-span-7">
-          <div className="space-y-16">
-            {narrative.map((section, idx) => (
-              <motion.div 
-                key={section.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.15 }}
-                className="relative pl-8 border-l border-[hsl(var(--grid-line))]"
-              >
-                <span className="absolute -left-[3px] top-0 w-[5px] h-[5px] bg-[hsl(var(--accent-primary))]" />
-                <h3 className="text-xs-mono mb-4 text-[hsl(var(--accent-primary))]">{section.label}</h3>
-                <p className="font-display text-xl md:text-2xl leading-relaxed uppercase tracking-wide">
-                  {section.text}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+        {/* Right Column: Narrative Sections */}
+        <div className="space-y-16">
+          {narrative.map((section, idx) => (
+            <motion.div 
+              key={section.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.15 }}
+              className="relative pl-8 border-l border-[hsl(var(--grid-line))]"
+            >
+              <span className="absolute -left-[3px] top-0 w-[5px] h-[5px] bg-[hsl(var(--accent-primary))]" />
+              <h3 className="text-xs-mono mb-4 text-[hsl(var(--accent-primary))]">{section.label}</h3>
+              <p className="font-display text-xl md:text-2xl leading-relaxed uppercase tracking-wide">
+                {section.text}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>

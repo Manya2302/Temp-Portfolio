@@ -20,15 +20,15 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="text-xs-mono mb-4 block">// COMPUTATIONAL_INTERFACE_ARCHITECT</span>
+            {/* <span className="text-xs-mono mb-4 block">// COMPUTATIONAL_INTERFACE_ARCHITECT</span> */}
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-[0.9] tracking-tighter mb-8">
-              Algorithmic<br />
-              <span className="text-transparent stroke-text" style={{ WebkitTextStroke: "1px hsl(var(--text-primary))" }}>Precision</span><br />
-              Systems
+              Manya<br />
+              <span className="text-transparent stroke-text" style={{ WebkitTextStroke: "1px hsl(var(--text-primary))" }}>Parikh</span><br />
             </h1>
+            <h3>Data Scientist | SAP-Aware Consultant | SOC Analyst</h3>
+            <br></br>
             <p className="max-w-xl font-mono text-sm text-[hsl(var(--text-secondary))] border-l border-[hsl(var(--accent-primary))] pl-4 mb-8">
-              Designing spatial interfaces and high-performance frontend architecture. 
-              Rejecting standard templates in favor of engineered aesthetic systems.
+              Focused on applying data science and machine learning to extract actionable insights from complex, security-driven datasets, with hands-on exposure to SOC operations including log correlation, anomaly detection, and threat analysis. Supported by working knowledge of SAP enterprise data, this approach bridges analytics, security intelligence, and business decision-making with clarity and impact.
             </p>
             
             {/* Social Links */}

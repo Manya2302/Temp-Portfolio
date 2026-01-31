@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
 import { 
   LayoutGrid, 
@@ -8,86 +8,240 @@ import {
   FolderArchive, 
   History, 
   Terminal,
+  Home,
+  Sun,
+  Moon,
+  ChevronRight,
+  ChevronLeft,
   Menu,
   X
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const NAV_ITEMS = [
-  { path: "/", label: "INDEX", icon: LayoutGrid, code: "00" },
-  { path: "/about", label: "NARRATIVE", icon: User, code: "01" },
-  { path: "/skills", label: "MATRIX", icon: Cpu, code: "02" },
-  { path: "/projects", label: "ARCHIVE", icon: FolderArchive, code: "03" },
-  { path: "/experience", label: "TIMELINE", icon: History, code: "04" },
-  { path: "/contact", label: "TERMINAL", icon: Terminal, code: "05" },
+  { path: "/", label: "INDEX", shortLabel: "HOME", icon: LayoutGrid, code: "00" },
+  { path: "/about", label: "NARRATIVE", shortLabel: "ABOUT", icon: User, code: "01" },
+  { path: "/skills", label: "MATRIX", shortLabel: "SKILLS", icon: Cpu, code: "02" },
+  { path: "/projects", label: "ARCHIVE", shortLabel: "PROJECTS", icon: FolderArchive, code: "03" },
+  { path: "/experience", label: "TIMELINE", shortLabel: "TIMELINE", icon: History, code: "04" },
+  { path: "/contact", label: "TERMINAL", shortLabel: "CONTACT", icon: Terminal, code: "05" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  // Apply theme to document root
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDarkMode) {
+      root.style.setProperty('--bg-primary', '240 10% 4%');
+      root.style.setProperty('--bg-secondary', '240 6% 10%');
+      root.style.setProperty('--text-primary', '0 0% 95%');
+      root.style.setProperty('--text-secondary', '240 5% 65%');
+      root.style.setProperty('--grid-line', '240 6% 15%');
+      root.style.setProperty('--grid-line-active', '240 6% 25%');
+    } else {
+      root.style.setProperty('--bg-primary', '0 0% 98%');
+      root.style.setProperty('--bg-secondary', '0 0% 93%');
+      root.style.setProperty('--text-primary', '0 0% 10%');
+      root.style.setProperty('--text-secondary', '240 5% 40%');
+      root.style.setProperty('--grid-line', '240 6% 85%');
+      root.style.setProperty('--grid-line-active', '240 6% 75%');
+    }
+  }, [isDarkMode]);
+
+  // Find current and next page
+  const currentIndex = NAV_ITEMS.findIndex(item => item.path === location);
+  const nextItem = NAV_ITEMS[(currentIndex + 1) % NAV_ITEMS.length];
+  const prevItem = NAV_ITEMS[(currentIndex - 1 + NAV_ITEMS.length) % NAV_ITEMS.length];
+  
+  const isFirstPage = currentIndex === 0;
+  const isLastPage = currentIndex === NAV_ITEMS.length - 1;
+
+  const handleNext = () => {
+    if (!isLastPage) {
+      navigate(nextItem.path);
+    }
+  };
+
+  const handlePrev = () => {
+    if (!isFirstPage) {
+      navigate(prevItem.path);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-[hsl(var(--bg-primary))] text-[hsl(var(--text-primary))] overflow-hidden">
-      {/* SYSTEM HEADER (Mobile) */}
-      <div className="md:hidden h-14 border-b border-[hsl(var(--grid-line))] flex items-center justify-between px-4 sticky top-0 bg-[hsl(var(--bg-primary))] z-50">
-        <span className="font-mono text-xs tracking-widest text-[hsl(var(--accent-primary))]">SYS.VER.2026</span>
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
-
-      {/* NAVIGATION SIDEBAR */}
-      <nav className={clsx(
-        "fixed inset-0 z-40 bg-[hsl(var(--bg-primary))] md:relative md:w-64 md:flex-shrink-0 border-r border-[hsl(var(--grid-line))] flex flex-col transition-transform duration-300 ease-out md:translate-x-0",
-        mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-      )}>
-        {/* Identity Block */}
-        <div className="h-24 md:h-32 border-b border-[hsl(var(--grid-line))] p-6 flex flex-col justify-center">
-          <h1 className="font-display text-xl font-bold uppercase tracking-tighter">
-            Manya<span className="text-[hsl(var(--accent-primary))]"> Parikh</span>
-          </h1>
-          <div className="mt-2 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-green-500 animate-pulse" />
-            <span className="text-xs-mono">SYSTEM ONLINE</span>
-          </div>
-        </div>
-
-        {/* Navigation Links */}
-        <div className="flex-1 overflow-y-auto py-8 flex flex-col gap-1">
-          {NAV_ITEMS.map((item) => {
-            const isActive = location === item.path;
-            const Icon = item.icon;
+    <div className="min-h-screen flex flex-col bg-[hsl(var(--bg-primary))] text-[hsl(var(--text-primary))]">
+      {/* MODERN NAVIGATION BAR */}
+      <nav className="sticky top-0 z-50 bg-[hsl(var(--bg-primary))]/95 backdrop-blur-md border-b border-[hsl(var(--grid-line))]">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20">
             
-            return (
-              <Link key={item.path} href={item.path}>
-                <div 
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={clsx(
-                    "group flex items-center gap-4 px-6 py-4 cursor-pointer font-mono text-sm transition-all duration-200 border-l-2 border-transparent hover:bg-[hsl(var(--bg-secondary))]",
-                    isActive ? "border-l-[hsl(var(--accent-primary))] bg-[hsl(var(--bg-secondary))] text-[hsl(var(--accent-primary))]" : "text-[hsl(var(--text-secondary))]"
-                  )}
-                >
-                  <span className="text-[10px] opacity-50 font-bold">{item.code}</span>
-                  <span className={clsx("tracking-widest uppercase", isActive && "font-bold")}>{item.label}</span>
+            {/* LEFT: Brand Identity */}
+            <Link href="/">
+              <motion.div 
+                className="flex items-center gap-2 sm:gap-3 cursor-pointer group"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[hsl(var(--accent-primary))] to-[hsl(var(--accent-alert))] flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-black/20 animate-pulse" />
+                  <span className="font-display text-sm sm:text-lg font-bold text-white relative z-10">M</span>
                 </div>
-              </Link>
-            );
-          })}
-        </div>
+                <div className="hidden sm:block">
+                  <h1 className="font-display text-base sm:text-lg font-bold uppercase tracking-tight leading-none">
+                    Manya <span className="text-[hsl(var(--accent-primary))]">Parikh</span>
+                  </h1>
+                  <p className="text-[9px] sm:text-[10px] text-[hsl(var(--text-secondary))] font-mono tracking-widest">DATA.SCI.DEV</p>
+                </div>
+              </motion.div>
+            </Link>
 
-        {/* Footer Meta */}
-        <div className="p-6 border-t border-[hsl(var(--grid-line))]">
-          <div className="grid grid-cols-2 gap-2 text-[10px] text-[hsl(var(--text-secondary))] font-mono">
-            <div>BUILD</div>
-            <div className="text-right">A8.04</div>
-            <div>LATENCY</div>
-            <div className="text-right">12ms</div>
+            {/* RIGHT: Controls */}
+            <div className="flex items-center gap-2 sm:gap-4">
+              {/* Theme Toggle */}
+              <motion.button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-2 bg-[hsl(var(--bg-secondary))] border border-[hsl(var(--grid-line))] rounded-full hover:border-[hsl(var(--accent-primary))] transition-all duration-300 group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isDarkMode ? (
+                  <Sun className="w-4 h-4 text-[hsl(var(--accent-alert))] group-hover:rotate-90 transition-transform duration-300" />
+                ) : (
+                  <Moon className="w-4 h-4 text-[hsl(var(--accent-primary))] group-hover:-rotate-12 transition-transform duration-300" />
+                )}
+                <span className="hidden md:block font-mono text-xs uppercase tracking-wider text-[hsl(var(--text-secondary))] group-hover:text-[hsl(var(--text-primary))]">
+                  {isDarkMode ? "DAY" : "NIGHT"}
+                </span>
+              </motion.button>
+
+              {/* Navigation Arrows - Desktop */}
+              <div className="hidden sm:flex items-center gap-1 bg-[hsl(var(--bg-secondary))] border border-[hsl(var(--grid-line))] rounded-full p-1">
+                <motion.button
+                  onClick={handlePrev}
+                  disabled={isFirstPage}
+                  className={clsx(
+                    "p-2 rounded-full transition-colors",
+                    isFirstPage 
+                      ? "opacity-30 cursor-not-allowed" 
+                      : "hover:bg-[hsl(var(--bg-primary))] cursor-pointer"
+                  )}
+                  whileHover={!isFirstPage ? { scale: 1.1 } : {}}
+                  whileTap={!isFirstPage ? { scale: 0.9 } : {}}
+                  title={isFirstPage ? "First page" : `Previous: ${prevItem.shortLabel}`}
+                >
+                  <ChevronLeft className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
+                </motion.button>
+                <motion.button
+                  onClick={handleNext}
+                  disabled={isLastPage}
+                  className={clsx(
+                    "px-4 py-2 rounded-full transition-all flex items-center gap-2",
+                    isLastPage
+                      ? "bg-[hsl(var(--bg-secondary))] opacity-30 cursor-not-allowed"
+                      : "bg-[hsl(var(--accent-primary))] hover:bg-[hsl(var(--accent-primary))]/90 shadow-lg shadow-[hsl(var(--accent-primary))]/30 cursor-pointer"
+                  )}
+                  whileHover={!isLastPage ? { scale: 1.05, x: 2 } : {}}
+                  whileTap={!isLastPage ? { scale: 0.95 } : {}}
+                  title={isLastPage ? "Last page" : `Next: ${nextItem.shortLabel}`}
+                >
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">NEXT</span>
+                  <ChevronRight className="w-4 h-4 text-white" />
+                </motion.button>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <motion.button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 bg-[hsl(var(--bg-secondary))] border border-[hsl(var(--grid-line))] rounded-lg hover:border-[hsl(var(--accent-primary))] transition-colors"
+                whileTap={{ scale: 0.9 }}
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5 text-[hsl(var(--text-primary))]" />
+                ) : (
+                  <Menu className="w-5 h-5 text-[hsl(var(--text-primary))]" />
+                )}
+              </motion.button>
+            </div>
           </div>
         </div>
       </nav>
 
+      {/* MOBILE MENU OVERLAY */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden sticky top-16 sm:top-20 z-40 bg-[hsl(var(--bg-primary))]/98 backdrop-blur-xl border-b border-[hsl(var(--grid-line))] overflow-hidden"
+          >
+            {/* Mobile Menu Actions */}
+            <div className="px-4 py-6 space-y-3">
+              <motion.button
+                onClick={() => {
+                  setIsDarkMode(!isDarkMode);
+                }}
+                className="w-full flex items-center justify-between px-4 py-3 bg-[hsl(var(--bg-secondary))] border border-[hsl(var(--grid-line))] rounded-lg hover:border-[hsl(var(--accent-primary))] transition-all"
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="font-mono text-xs uppercase tracking-wider text-[hsl(var(--text-secondary))]">Theme Mode</span>
+                <div className="flex items-center gap-2">
+                  {isDarkMode ? (
+                    <>
+                      <Sun className="w-4 h-4 text-[hsl(var(--accent-alert))]" />
+                      <span className="font-mono text-xs font-bold text-[hsl(var(--text-primary))]">DAY</span>
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="w-4 h-4 text-[hsl(var(--accent-primary))]" />
+                      <span className="font-mono text-xs font-bold text-[hsl(var(--text-primary))]">NIGHT</span>
+                    </>
+                  )}
+                </div>
+              </motion.button>
+
+              {/* Mobile Navigation */}
+              <div className="flex gap-2">
+                <motion.button
+                  onClick={() => { handlePrev(); setMobileMenuOpen(false); }}
+                  disabled={isFirstPage}
+                  className={clsx(
+                    "flex-1 flex items-center justify-center gap-2 px-4 py-3 border rounded-lg transition-all",
+                    isFirstPage
+                      ? "bg-[hsl(var(--bg-secondary))] border-[hsl(var(--grid-line))] opacity-30 cursor-not-allowed"
+                      : "bg-[hsl(var(--bg-secondary))] border-[hsl(var(--grid-line))] hover:border-[hsl(var(--text-primary))]/30 cursor-pointer"
+                  )}
+                  whileTap={!isFirstPage ? { scale: 0.95 } : {}}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span className="font-mono text-xs uppercase tracking-wider">PREV</span>
+                </motion.button>
+                <motion.button
+                  onClick={() => { handleNext(); setMobileMenuOpen(false); }}
+                  disabled={isLastPage}
+                  className={clsx(
+                    "flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all",
+                    isLastPage
+                      ? "bg-[hsl(var(--bg-secondary))] opacity-30 cursor-not-allowed"
+                      : "bg-[hsl(var(--accent-primary))] hover:bg-[hsl(var(--accent-primary))]/90 shadow-lg shadow-[hsl(var(--accent-primary))]/30 cursor-pointer"
+                  )}
+                  whileTap={!isLastPage ? { scale: 0.95 } : {}}
+                >
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">NEXT</span>
+                  <ChevronRight className="w-4 h-4 text-white" />
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* MAIN CONTENT VIEWPORT */}
-      <main className="flex-1 h-[calc(100vh-3.5rem)] md:h-screen overflow-y-auto scroll-smooth relative">
+      <main className="flex-1 overflow-y-auto scroll-smooth relative">
         <div className="absolute top-0 left-0 w-full h-1 bg-[hsl(var(--grid-line))] z-10">
           <motion.div 
             className="h-full bg-[hsl(var(--accent-primary))]" 
@@ -97,8 +251,52 @@ export function Layout({ children }: { children: React.ReactNode }) {
           />
         </div>
 
-        <div className="min-h-full p-4 md:p-12 lg:p-16 max-w-7xl mx-auto">
-           {children}
+        <div className="min-h-full px-3 py-6 sm:px-6 sm:py-8 md:px-8 md:py-12 lg:px-16 lg:py-16 max-w-7xl mx-auto">
+          {children}
+        </div>
+
+        {/* Mobile Bottom Navigation Bar */}
+        <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-[hsl(var(--bg-primary))]/95 backdrop-blur-md border-t border-[hsl(var(--grid-line))] z-50">
+          <div className="flex items-center justify-around p-3">
+            <motion.button
+              onClick={handlePrev}
+              disabled={isFirstPage}
+              className={clsx(
+                "flex items-center gap-2 px-4 py-2 border rounded-full transition-all",
+                isFirstPage
+                  ? "bg-[hsl(var(--bg-secondary))] border-[hsl(var(--grid-line))] opacity-30 cursor-not-allowed"
+                  : "bg-[hsl(var(--bg-secondary))] border-[hsl(var(--grid-line))] hover:border-[hsl(var(--text-primary))]/30 cursor-pointer"
+              )}
+              whileTap={!isFirstPage ? { scale: 0.9 } : {}}
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span className="font-mono text-xs uppercase">Prev</span>
+            </motion.button>
+
+            <Link href="/">
+              <motion.button
+                className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--accent-primary))] to-[hsl(var(--accent-alert))] rounded-full flex items-center justify-center shadow-lg shadow-[hsl(var(--accent-primary))]/30"
+                whileTap={{ scale: 0.9 }}
+              >
+                <Home className="w-5 h-5 text-white" />
+              </motion.button>
+            </Link>
+
+            <motion.button
+              onClick={handleNext}
+              disabled={isLastPage}
+              className={clsx(
+                "flex items-center gap-2 px-4 py-2 rounded-full transition-all",
+                isLastPage
+                  ? "bg-[hsl(var(--bg-secondary))] opacity-30 cursor-not-allowed"
+                  : "bg-[hsl(var(--accent-primary))] hover:bg-[hsl(var(--accent-primary))]/90 shadow-lg shadow-[hsl(var(--accent-primary))]/30 cursor-pointer"
+              )}
+              whileTap={!isLastPage ? { scale: 0.9 } : {}}
+            >
+              <span className="font-mono text-xs font-bold uppercase text-white">Next</span>
+              <ChevronRight className="w-4 h-4 text-white" />
+            </motion.button>
+          </div>
         </div>
       </main>
     </div>

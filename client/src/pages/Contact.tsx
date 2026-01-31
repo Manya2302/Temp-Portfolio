@@ -28,7 +28,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-3xl mx-auto pb-20 sm:pb-8">
       <PageHeader 
         title="Transmission Terminal" 
         code="05" 
@@ -36,27 +36,27 @@ export default function Contact() {
       />
 
       <div className="bg-[hsl(var(--bg-secondary))] border border-[hsl(var(--grid-line))] p-1">
-        <div className="border border-[hsl(var(--grid-line))] p-8 md:p-12 bg-[hsl(var(--bg-primary))]">
+        <div className="border border-[hsl(var(--grid-line))] p-4 sm:p-6 md:p-8 lg:p-12 bg-[hsl(var(--bg-primary))]">
           
-          <div className="mb-8 flex items-center gap-2 text-xs-mono text-[hsl(var(--accent-primary))]">
+          <div className="mb-6 sm:mb-8 flex items-center gap-2 text-xs-mono text-[10px] sm:text-xs text-[hsl(var(--accent-primary))]">
             <div className="w-2 h-2 bg-[hsl(var(--accent-primary))] animate-pulse" />
             READY_TO_RECEIVE
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xs-mono">SENDER_IDENTITY</FormLabel>
+                      <FormLabel className="text-xs-mono text-[10px] sm:text-xs">SENDER_IDENTITY</FormLabel>
                       <FormControl>
                         <Input 
                           placeholder="ENTER NAME" 
                           {...field} 
-                          className="font-mono bg-[hsl(var(--bg-secondary))] border-[hsl(var(--grid-line))] focus:border-[hsl(var(--accent-primary))] rounded-none h-12" 
+                          className="font-mono text-sm sm:text-base bg-[hsl(var(--bg-secondary))] border-[hsl(var(--grid-line))] focus:border-[hsl(var(--accent-primary))] rounded-none h-10 sm:h-12" 
                         />
                       </FormControl>
                       <FormMessage className="font-mono text-xs" />
@@ -68,12 +68,12 @@ export default function Contact() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xs-mono">RETURN_ADDRESS</FormLabel>
+                      <FormLabel className="text-xs-mono text-[10px] sm:text-xs">RETURN_ADDRESS</FormLabel>
                       <FormControl>
                         <Input 
                           placeholder="ENTER EMAIL" 
                           {...field} 
-                          className="font-mono bg-[hsl(var(--bg-secondary))] border-[hsl(var(--grid-line))] focus:border-[hsl(var(--accent-primary))] rounded-none h-12" 
+                          className="font-mono text-sm sm:text-base bg-[hsl(var(--bg-secondary))] border-[hsl(var(--grid-line))] focus:border-[hsl(var(--accent-primary))] rounded-none h-10 sm:h-12" 
                         />
                       </FormControl>
                       <FormMessage className="font-mono text-xs" />

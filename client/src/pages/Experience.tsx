@@ -203,7 +203,7 @@ export default function Experience() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto pb-20 sm:pb-8">
       <PageHeader 
         title="Professional Journey" 
         code="04" 
@@ -211,17 +211,17 @@ export default function Experience() {
       />
 
       {/* Tabbed Navigation */}
-      <div className="mb-12 border-2 border-[hsl(var(--grid-line))] bg-[hsl(var(--bg-secondary))] p-2 rounded-lg">
-        <div className="flex flex-wrap gap-2">
+      <div className="mb-8 sm:mb-12 border-2 border-[hsl(var(--grid-line))] bg-[hsl(var(--bg-secondary))] p-1.5 sm:p-2 rounded-lg">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`
-                px-6 py-3 font-display font-bold text-sm tracking-wider transition-all duration-300
-                border-2 rounded-md
+                px-3 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 font-display font-bold text-[10px] sm:text-xs md:text-sm tracking-wider transition-all duration-300
+                border-2 rounded-md flex-1 sm:flex-initial min-w-0
                 ${activeTab === tab 
-                  ? 'bg-[hsl(var(--accent-primary))] text-[hsl(var(--bg-primary))] border-[hsl(var(--text-primary))]' 
+                  ? 'bg-[hsl(var(--accent-primary))] text-white border-[hsl(var(--text-primary))] shadow-lg shadow-[hsl(var(--accent-primary))]/30' 
                   : 'bg-[hsl(var(--bg-primary))] text-[hsl(var(--text-primary))] border-[hsl(var(--grid-line))] hover:border-[hsl(var(--accent-primary))]'
                 }
               `}
@@ -232,18 +232,18 @@ export default function Experience() {
         </div>
       </div>
 
-      <div className="space-y-16">
+      <div className="space-y-10 sm:space-y-12 md:space-y-16">
         {/* Work Experience Section */}
         {shouldShow("WORK") && (
           <section>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             >
-              <h2 className="text-xs-mono text-[hsl(var(--accent-primary))] mb-2">SECTION_01</h2>
-              <h3 className="font-display text-3xl font-bold mb-2">WORK EXPERIENCE</h3>
-              <div className="h-1 w-24 bg-[hsl(var(--accent-primary))]" />
+              <h2 className="text-xs-mono text-[10px] sm:text-xs text-[hsl(var(--accent-primary))] mb-2">SECTION_01</h2>
+              <h3 className="font-display text-2xl sm:text-3xl font-bold mb-2">WORK EXPERIENCE</h3>
+              <div className="h-1 w-20 sm:w-24 bg-[hsl(var(--accent-primary))]" />
             </motion.div>
 
             {WORK_EXPERIENCE.length === 0 ? (

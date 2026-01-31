@@ -95,7 +95,7 @@ const TOOLS_OF_THE_TRADE = [
 
 
 const SkillSection = ({ data, startIndex, sectionLabel }: { data: typeof SKILL_MATRIX, startIndex: number, sectionLabel: string }) => (
-  <div className="space-y-8">
+  <div className="space-y-4 sm:space-y-6 md:space-y-8">
     {data.map((domain, i) => (
       <motion.div 
         key={domain.category}
@@ -105,19 +105,19 @@ const SkillSection = ({ data, startIndex, sectionLabel }: { data: typeof SKILL_M
         transition={{ delay: i * 0.08 }}
       >
         {/* Header Section */}
-        <div className="p-6 border-b border-[hsl(var(--grid-line))] bg-[hsl(var(--bg-primary))]">
-          <div className="flex items-center gap-4">
-            <span className="text-xs-mono text-[hsl(var(--accent-primary))]">
+        <div className="p-4 sm:p-6 border-b border-[hsl(var(--grid-line))] bg-[hsl(var(--bg-primary))]">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span className="text-xs-mono text-[10px] sm:text-xs text-[hsl(var(--accent-primary))]">
               {sectionLabel}_{String(startIndex + i).padStart(2, '0')}
             </span>
             <div className="h-px flex-1 bg-[hsl(var(--grid-line))]" />
           </div>
-          <h3 className="font-display text-2xl mt-3 font-bold tracking-wide">{domain.category}</h3>
+          <h3 className="font-display text-lg sm:text-xl md:text-2xl mt-2 sm:mt-3 font-bold tracking-wide break-words">{domain.category}</h3>
         </div>
 
         {/* Skills Grid */}
-        <div className="p-6 md:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
+        <div className="p-4 sm:p-6 md:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-4 sm:gap-y-6">
             {domain.items.map((skill, idx) => (
               <motion.div 
                 key={skill.name} 
@@ -127,17 +127,17 @@ const SkillSection = ({ data, startIndex, sectionLabel }: { data: typeof SKILL_M
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.05 }}
               >
-                <div className="flex justify-between items-baseline mb-3">
-                  <span className="text-sm font-medium text-[hsl(var(--text-primary))]">
+                <div className="flex justify-between items-baseline mb-2 sm:mb-3">
+                  <span className="text-xs sm:text-sm font-medium text-[hsl(var(--text-primary))] break-words pr-2">
                     {skill.name}
                   </span>
-                  <span className="text-xs font-mono text-[hsl(var(--text-secondary))] ml-4">
+                  <span className="text-[10px] sm:text-xs font-mono text-[hsl(var(--text-secondary))] ml-2 flex-shrink-0">
                     {skill.level}%
                   </span>
                 </div>
                 
                 {/* Progress Bar */}
-                <div className="h-2 w-full bg-[hsl(var(--bg-primary))] overflow-hidden relative border border-[hsl(var(--grid-line))]">
+                <div className="h-1.5 sm:h-2 w-full bg-[hsl(var(--bg-primary))] overflow-hidden relative border border-[hsl(var(--grid-line))]">
                   {/* Grid lines inside the bar */}
                   <div className="absolute inset-0 flex justify-between z-10 pointer-events-none">
                     {[...Array(10)].map((_, j) => (
@@ -167,7 +167,7 @@ const SkillSection = ({ data, startIndex, sectionLabel }: { data: typeof SKILL_M
 
 export default function Skills() {
   return (
-    <div className="max-w-7xl mx-auto space-y-16">
+    <div className="max-w-7xl mx-auto space-y-10 sm:space-y-12 md:space-y-16 pb-20 sm:pb-8">
       {/* Skills Matrix Section */}
       <div>
         <PageHeader 

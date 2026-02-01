@@ -3,37 +3,52 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 
 const PROJECTS = [
+  // ...existing projects...
+  // New projects below
   {
     id: "001",
-    title: "NEURAL_INTERFACE_V1",
-    desc: "A WebGL-based visualization of neural network pathways using standard React state.",
-    stack: ["React", "Three.js", "Zustand"],
-    year: "2024",
-    link: "#"
+    title: "Loco Payroll Management System",
+    desc: "AI-based payroll management system with PayPal integration for seamless salary processing.",
+    stack: ["AI", "Node.js", "Express", "PayPal API"],
+    year: "2025",
+    github: "https://github.com/Manya2302/Payroll",
+    live: ""
   },
   {
     id: "002",
-    title: "QUANTUM_DASH",
-    desc: "High-frequency trading dashboard with sub-millisecond websocket updates.",
-    stack: ["Next.js", "WebSocket", "D3.js"],
-    year: "2023",
-    link: "#"
+    title: "QuickFix – Instant Home Services Platform",
+    desc: "MEAN stack app with AI/ML-based service provider allocation (distance, skill, experience), Razorpay payment integration.",
+    stack: ["MEAN", "AI/ML", "Razorpay"],
+    year: "2025",
+    github: "",
+    live: ""
   },
   {
     id: "003",
-    title: "VOID_EDITOR",
-    desc: "Minimalist markdown editor with semantic syntax analysis and graph view.",
-    stack: ["Rust", "WASM", "React"],
-    year: "2023",
-    link: "#"
+    title: "Stock Market Analysis",
+    desc: "Transforms raw stock price data into actionable insights: price trends (2019–2024), year-wise & sector-wise analysis, interactive visualizations, and tabular drill-down.",
+    stack: ["Power BI", "Data Analysis", "Visualization"],
+    year: "2024",
+    github: "http://github.com/Manya2302/Power-BI/blob/master/Trading%20Report/Stock%20Treding%20Report_Manya_Parikh.pbix",
+    live: ""
   },
   {
     id: "004",
-    title: "SYNTH_PROTOCOL",
-    desc: "Decentralized identity management protocol interface for Web3 applications.",
-    stack: ["Solidity", "Ethers.js", "Tailwind"],
-    year: "2022",
-    link: "#"
+    title: "Blinkit Report",
+    desc: "Transforms raw data into insights for sales, inventory, fulfillment, and profitability. Interactive dashboard for business stakeholders.",
+    stack: ["Power BI", "Dashboard", "Analytics"],
+    year: "2024",
+    github: "https://github.com/Manya2302/Power-BI/blob/master/Blinkit/Blinkit%20Report.pbix",
+    live: ""
+  },
+  {
+    id: "005",
+    title: "Lock Blip",
+    desc: "AI-based message creation with military-grade encryption functionalities.",
+    stack: ["AI", "Encryption", "Security"],
+    year: "2025",
+    github: "https://github.com/Manya2302/LockBlip",
+    live: ""
   }
 ];
 
@@ -76,6 +91,20 @@ export default function Projects() {
                       {project.title}
                       <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </h3>
+                    {(project.github || project.live) && (
+                      <div className="flex gap-2 mt-1">
+                        {project.github && (
+                          <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs-mono text-[hsl(var(--accent-primary))] hover:underline">
+                            <Github className="w-3 h-3" /> GitHub
+                          </a>
+                        )}
+                        {project.live && (
+                          <a href={project.live} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs-mono text-[hsl(var(--accent-primary))] hover:underline">
+                            <ArrowUpRight className="w-3 h-3" /> Live
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
                 
@@ -98,10 +127,26 @@ export default function Projects() {
               </div>
               
               <div className="hidden lg:block col-span-4">
-                <h3 className="font-display text-lg xl:text-xl font-bold uppercase group-hover:text-[hsl(var(--accent-primary))] transition-colors flex items-center gap-2">
-                  {project.title}
-                  <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </h3>
+                <div className="flex flex-col gap-1">
+                  <h3 className="font-display text-lg xl:text-xl font-bold uppercase group-hover:text-[hsl(var(--accent-primary))] transition-colors flex items-center gap-2">
+                    {project.title}
+                    <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </h3>
+                  {(project.github || project.live) && (
+                    <div className="flex gap-2 mt-1">
+                      {project.github && (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs-mono text-[hsl(var(--accent-primary))] hover:underline">
+                          <Github className="w-3 h-3" /> GitHub
+                        </a>
+                      )}
+                      {project.live && (
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs-mono text-[hsl(var(--accent-primary))] hover:underline">
+                          <ArrowUpRight className="w-3 h-3" /> Live
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
               
               <div className="hidden lg:block col-span-4 text-xs xl:text-sm font-mono text-[hsl(var(--text-secondary))]">

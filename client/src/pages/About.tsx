@@ -35,10 +35,11 @@ export default function About() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24">
         {/* Left Column: WHO AM I Section */}
         <div className="space-y-10 sm:space-y-16">
+          {/* Profile Image */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0 }}
+            transition={{ delay: 0.1 }}
             className="relative pl-6 sm:pl-8 border-l border-[hsl(var(--grid-line))]"
           >
             <span className="absolute -left-[3px] top-0 w-[5px] h-[5px] bg-[hsl(var(--accent-primary))]" />

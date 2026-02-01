@@ -52,6 +52,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
     }
   }, [isDarkMode]);
 
+  // Scroll to top when location changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location]);
+
   // Find current and next page
   const currentIndex = NAV_ITEMS.findIndex(item => item.path === location);
   const nextItem = NAV_ITEMS[(currentIndex + 1) % NAV_ITEMS.length];
@@ -86,9 +91,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[hsl(var(--accent-primary))] to-[hsl(var(--accent-alert))] flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/20 animate-pulse" />
-                  <span className="font-display text-sm sm:text-lg font-bold text-white relative z-10">M</span>
+                <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center relative overflow-hidden rounded">
+                  <img 
+                    src="/profile.jpeg" 
+                    alt="Manya Parikh"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback to "M" if image not found
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '<div class="absolute inset-0 bg-gradient-to-br from-[hsl(var(--accent-primary))] to-[hsl(var(--accent-alert))]"></div><div class="absolute inset-0 bg-black/20 animate-pulse"></div><span class="font-display text-sm sm:text-lg font-bold text-white relative z-10">M</span>';
+                    }}
+                  />
                 </div>
                 <div className="hidden sm:block">
                   <h1 className="font-display text-base sm:text-lg font-bold uppercase tracking-tight leading-none">

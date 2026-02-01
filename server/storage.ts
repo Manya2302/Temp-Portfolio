@@ -1,4 +1,4 @@
-import type { Message, type InsertMessage } from "@shared/schema";
+import type { Message, InsertMessage } from "@shared/schema";
 import { getMongoCollections } from "./db";
 
 export interface IStorage {
